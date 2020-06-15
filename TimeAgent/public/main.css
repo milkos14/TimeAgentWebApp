@@ -1,0 +1,22 @@
+
+.thumbnail img {
+	width : 100%;
+}
+
+.thumbnail {
+	padding : 0;
+}
+
+.body{
+	grid-gap: 10px;
+    background-color: aqua;
+}
+
+#delete-form {
+	display : inline;
+}
+
+#deleteBtn {
+	display : inline;
+}
+

@@ -1,0 +1,44 @@
+<%-include("../partials/header")%>
+	<div class="row">
+		<div class="col-md-3">
+			<p class="lead"><%=task.name%></p>
+		</div>	
+		<!-- <div id="container" style="overflow: hidden" wfd-id="47">
+        		<div id="preview-container" wfd-id="547"><iframe id="snippet-preview" class="preview-iframe" 												src="//s.bootsnipp.com/iframe/10BE9"></iframe></div> -->
+        
+        <div class="caption-full">
+				<p><strong>Description: </strong><%=task.description%></p>
+				<p><em>Submitted by: <%= task.author.username %>, <%= moment(task.createdAt).fromNow() %></em></p>
+                <% if(currentUser && task.author.id.equals(currentUser._id)){ %>
+			<div style="display: inline;">
+				<a class="btn btn-xs btn-warning" href="/tasks/<%= task._id %>/edit" style="display: inline;">Edit</a>
+				<form id="delete-form" action="/tasks/<%= task._id%>?_method=DELETE" method="POST">
+					<button class="btn btn-xs btn-danger" href="">Delete</button>
+				</form>	
+			</div>
+				
+                <% } %>
+			</div> 		
+			
+			<div class="well">
+				<div class="text-right">
+					<a class="btn btn-success" href="/tasks/<%=task._id%>/comments/new">Add a new Step</a>
+				</div>
+				<hr>
+				<% task.comments.forEach(function(comment){ %>
+				<div class="row">
+					<div class="col-md-12">
+						<strong><%=comment.author.username%></strong>
+						 <p><%=comment.text%></p>
+						<span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+							<a class="btn btn-xs btn-warning" href="/tasks/<%= task._id %>/comments/<%= comment._id %>/edit" style="display: inline;">Edit</a>
+                        <form id="delete-form" action="/tasks/<%= task._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                            <input  type="submit" style="display: inline;" class="btn btn-xs btn-danger" value="Delete">
+                        <% } %>
+					</div>
+				</div>
+				<% }); %>
+			</div>
+		</div>
+<%-include("../partials/footer")%>
